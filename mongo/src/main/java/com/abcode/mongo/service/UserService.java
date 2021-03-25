@@ -1,5 +1,6 @@
 package com.abcode.mongo.service;
 
+import com.abcode.mongo.entities.User;
 import com.abcode.mongo.models.dto.UserDTO;
 import com.abcode.mongo.repositories.UserRepository;
 import com.abcode.mongo.service.exceptions.ResourceNotFoundException;
@@ -24,5 +25,17 @@ public class UserService {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado."));
         return new UserDTO(entity);
+    }
+
+    public UserDTO insert(UserDTO dto) {
+        var entity = new User();
+        copyDtoToEntity(dto, entity);
+        entity = repository.insert(entity);
+        return new UserDTO(entity);
+    }
+
+    private void copyDtoToEntity(UserDTO dto, User entity) {
+        entity.setName(dto.getName());
+        entity.setEmail(dto.getEmail());
     }
 }
