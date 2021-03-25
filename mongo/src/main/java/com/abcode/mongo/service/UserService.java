@@ -22,15 +22,26 @@ public class UserService {
     }
 
     public UserDTO findById(String id) {
-        var entity = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado."));
+        var entity = getUserById(id);
         return new UserDTO(entity);
+    }
+
+    public User getUserById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado."));
     }
 
     public UserDTO insert(UserDTO dto) {
         var entity = new User();
         copyDtoToEntity(dto, entity);
         entity = repository.insert(entity);
+        return new UserDTO(entity);
+    }
+
+    public UserDTO update(String id, UserDTO dto) {
+        var entity = getUserById(id);
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
         return new UserDTO(entity);
     }
 
