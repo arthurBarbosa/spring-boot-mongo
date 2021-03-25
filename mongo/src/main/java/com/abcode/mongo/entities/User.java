@@ -54,4 +54,8 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
 }
