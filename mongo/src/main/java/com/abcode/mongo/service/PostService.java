@@ -31,5 +31,10 @@ public class PostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado."));
     }
 
+    public List<PostDTO> findByTitle(String text) {
+        var list = repository.findByTitleContainingIgnoreCase(text);
+        return list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+    }
+
 
 }
