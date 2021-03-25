@@ -1,5 +1,6 @@
 package com.abcode.mongo.resources;
 
+import com.abcode.mongo.models.dto.PostDTO;
 import com.abcode.mongo.models.dto.UserDTO;
 import com.abcode.mongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,12 @@ public class UserResource {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> getUsersPosts(@PathVariable String id) {
+        var dto = userService.getUserPosts(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.abcode.mongo.service;
 
 import com.abcode.mongo.entities.User;
+import com.abcode.mongo.models.dto.PostDTO;
 import com.abcode.mongo.models.dto.UserDTO;
 import com.abcode.mongo.repositories.UserRepository;
 import com.abcode.mongo.service.exceptions.ResourceNotFoundException;
@@ -45,9 +46,14 @@ public class UserService {
         return new UserDTO(entity);
     }
 
-    public void deleteById(String id){
+    public void deleteById(String id) {
         getUserById(id);
         repository.deleteById(id);
+    }
+
+    public List<PostDTO> getUserPosts(String id) {
+        var user = getUserById(id);
+        return user.getPosts().stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
     }
 
     private void copyDtoToEntity(UserDTO dto, User entity) {
