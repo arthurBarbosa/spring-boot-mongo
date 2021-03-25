@@ -1,33 +1,28 @@
-package com.abcode.mongo.entities;
+package com.abcode.mongo.models.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.abcode.mongo.entities.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-@Document(collection = "users")
-public class User implements Serializable {
+public class UserDTO implements Serializable {
 
-    @Id
     private String id;
     private String name;
     private String email;
 
-    @DBRef(lazy = true)
-    private List<Post> posts = new ArrayList<>();
-
-    public User() {
-
+    public UserDTO() {
     }
 
-    public User(String id, String name, String email) {
-        super();
+    public UserDTO(String id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
+    }
+
+    public UserDTO(User entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.email = entity.getEmail();
     }
 
     public String getId() {
@@ -52,9 +47,5 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
     }
 }

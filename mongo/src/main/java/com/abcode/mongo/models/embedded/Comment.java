@@ -1,8 +1,9 @@
 package com.abcode.mongo.models.embedded;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-public class Comment {
+public class Comment implements Serializable {
 
     private String text;
     private Instant moment;
