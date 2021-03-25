@@ -1,6 +1,7 @@
 package com.abcode.mongo.config;
 
 import com.abcode.mongo.entities.User;
+import com.abcode.mongo.repositories.PostRepository;
 import com.abcode.mongo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +16,13 @@ public class TestConfig {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @PostConstruct
     public void init() {
         userRepository.deleteAll();
+        postRepository.deleteAll();
 
         User maria = new User(null, "Maria Brown", "maria@gmail.com");
         User alex = new User(null, "Alex Green", "alex@gmail.com");
